@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,13 +12,14 @@ class ViewData extends StatefulWidget {
 
 class _ViewDataState extends State<ViewData> {
   //function get api
-  getData() async {
+  Future<List>? getData() async {
     final response = await http.get(
       Uri.parse(
         'http://192.168.42.210/backendphpnative/getdata.php',
       ),
     );
-    print(response.body);
+    // print(response.body);
+    return json.decode(response.body);
   }
 
   @override
@@ -31,15 +34,50 @@ class _ViewDataState extends State<ViewData> {
       appBar: AppBar(
         title: Text('CRUD MYSQL'),
       ),
-      body: Center(
-        child: Text(
-          'loading...',
-        ),
-      ),
+      body: FutureBuilder<List>(
+          future: getData(),
+          builder: (context, snapshot) {
+            if (snapshot.hasError) print(snapshot.error);
+            if (snapshot.hasData) {
+              return ItemList(list: snapshot.data);
+            } else {
+              return Center(
+                child: Text(
+                  'loading ...',
+                ),
+              );
+            }
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: Icon(Icons.add),
       ),
+    );
+  }
+}
+
+class ItemList extends StatelessWidget {
+  final List? list;
+  const ItemList({Key? key, this.list}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: list == null ? 0 : list!.length,
+      itemBuilder: (context, i) {
+        return Container(
+          child: Card(
+            child: ListTile(
+              title: Text(
+                list![i]['item_name'],
+              ),
+              leading: Icon(
+                Icons.widgets,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
