@@ -64,12 +64,18 @@ class ItemList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: list == null ? 0 : list!.length,
-      itemBuilder: (context, i){
+      itemBuilder: (context, i) {
         return Container(
           child: Card(
-            child: Text(list![i]['item_name']),
+            child: ListTile(
+              title: Text(
+                list![i]['item_name'],
+              ),
+              leading: Icon(
+                Icons.widgets,
+              ),
+            ),
           ),
-
         );
       },
     );
