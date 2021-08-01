@@ -39,11 +39,11 @@ class _ViewDataState extends State<ViewData> {
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             if (snapshot.hasData) {
-              return ItemList(list : snapshot.data);
+              return ItemList(list: snapshot.data);
             } else {
               return Center(
                 child: Text(
-                  'loading...',
+                  'loading ...',
                 ),
               );
             }
@@ -57,12 +57,21 @@ class _ViewDataState extends State<ViewData> {
 }
 
 class ItemList extends StatelessWidget {
-  const ItemList({ Key? key, List? list }) : super(key: key);
+  final List? list;
+  const ItemList({Key? key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
+    return ListView.builder(
+      itemCount: list == null ? 0 : list!.length,
+      itemBuilder: (context, i){
+        return Container(
+          child: Card(
+            child: Text(list![i]['item_name']),
+          ),
+
+        );
+      },
     );
   }
 }
