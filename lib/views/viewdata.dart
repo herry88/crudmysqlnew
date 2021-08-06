@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crudmysql/views/inputData.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,7 +16,7 @@ class _ViewDataState extends State<ViewData> {
   Future<List>? getData() async {
     final response = await http.get(
       Uri.parse(
-        'http://192.168.42.210/backendphpnative/getdata.php',
+        'http://192.168.100.109/backendflutter/getdata.php',
       ),
     );
     // print(response.body);
@@ -49,7 +50,13 @@ class _ViewDataState extends State<ViewData> {
             }
           }),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => InputData(),
+            ),
+          );
+        },
         child: Icon(Icons.add),
       ),
     );
