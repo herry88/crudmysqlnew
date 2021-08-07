@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:crudmysql/views/detailpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -74,13 +75,20 @@ class ItemList extends StatelessWidget {
       itemCount: list == null ? 0 : list!.length,
       itemBuilder: (context, i) {
         return Container(
-          child: Card(
-            child: ListTile(
-              title: Text(
-                list![i]['item_name'],
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailPage(),
               ),
-              leading: Icon(
-                Icons.widgets,
+            ),
+            child: Card(
+              child: ListTile(
+                title: Text(
+                  list![i]['item_name'],
+                ),
+                leading: Icon(
+                  Icons.widgets,
+                ),
               ),
             ),
           ),
