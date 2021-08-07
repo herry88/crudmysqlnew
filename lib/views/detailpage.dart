@@ -2,6 +2,8 @@ import 'package:crudmysql/views/viewdata.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'editpage.dart';
+
 // ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
   List? list;
@@ -124,7 +126,14 @@ class _DetailPageState extends State<DetailPage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => EditPage(
+                                list: widget.list, index: widget.index),
+                          ),
+                        );
+                      },
                       child: Text(
                         'Edit',
                       ),
