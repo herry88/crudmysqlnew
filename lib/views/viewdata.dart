@@ -1,8 +1,8 @@
 import 'dart:convert';
-
-import 'package:crudmysql/views/inputData.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'inputdata.dart';
 
 class ViewData extends StatefulWidget {
   const ViewData({Key? key}) : super(key: key);
@@ -51,6 +51,7 @@ class _ViewDataState extends State<ViewData> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          //navigation
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => InputData(),
