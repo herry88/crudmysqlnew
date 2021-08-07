@@ -1,4 +1,6 @@
+import 'package:crudmysql/views/viewdata.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
@@ -11,6 +13,62 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  //function delete
+  void deleteData() {
+    var url = "http://192.168.100.109/backendflutter/deletedata.php";
+    http.post(
+      Uri.parse(url),
+      body: {
+        'id': widget.list![widget.index]['id'],
+      },
+    );
+  }
+
+  //function showDialog
+  void confirm() {
+    AlertDialog alertDialog = AlertDialog(
+      content: Text(
+        'Are you Sure want to delete ${widget.list![widget.index]['item_name']} ?',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+            deleteData();
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => ViewData(),
+              ),
+            );
+          },
+          child: Text(
+            'Ok Delete!',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Colors.teal,
+          ),
+          child: Text(
+            'Cancel',
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ],
+    );
+    showDialog(builder: (context) => alertDialog, context: context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,7 +132,9 @@ class _DetailPageState extends State<DetailPage> {
                       width: 20.0,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        confirm();
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Colors.red,
                       ),
