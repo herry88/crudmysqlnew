@@ -78,7 +78,7 @@ class ItemList extends StatelessWidget {
           child: GestureDetector(
             onTap: () => Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => DetailPage(),
+                builder: (context) => DetailPage(list: list, index: i),
               ),
             ),
             child: Card(
