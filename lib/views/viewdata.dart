@@ -1,8 +1,9 @@
 import 'dart:convert';
-
-import 'package:crudmysql/views/inputData.dart';
+import 'package:crudmysql/views/detailpage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+import 'inputdata.dart';
 
 class ViewData extends StatefulWidget {
   const ViewData({Key? key}) : super(key: key);
@@ -51,6 +52,7 @@ class _ViewDataState extends State<ViewData> {
           }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          //navigation
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => InputData(),
@@ -73,13 +75,20 @@ class ItemList extends StatelessWidget {
       itemCount: list == null ? 0 : list!.length,
       itemBuilder: (context, i) {
         return Container(
-          child: Card(
-            child: ListTile(
-              title: Text(
-                list![i]['item_name'],
+          child: GestureDetector(
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => DetailPage(list: list, index: i),
               ),
-              leading: Icon(
-                Icons.widgets,
+            ),
+            child: Card(
+              child: ListTile(
+                title: Text(
+                  list![i]['item_name'],
+                ),
+                leading: Icon(
+                  Icons.widgets,
+                ),
               ),
             ),
           ),

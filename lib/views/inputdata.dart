@@ -10,15 +10,18 @@ class InputData extends StatefulWidget {
 }
 
 class _InputDataState extends State<InputData> {
-  TextEditingController controllerCode = new TextEditingController();
-  TextEditingController controllerName = new TextEditingController();
-  TextEditingController controllerPrice = new TextEditingController();
-  TextEditingController controllerStock = new TextEditingController();
+  //deklarasikan form
+  TextEditingController controllerCode = TextEditingController();
+  TextEditingController controllerName = TextEditingController();
+  TextEditingController controllerPrice = TextEditingController();
+  TextEditingController controllerStock = TextEditingController();
 
+  //function add data
   void addData() {
     var url = "http://192.168.100.109/backendflutter/adddata.php";
 
     http.post(Uri.parse(url), body: {
+      //deklarasi form
       "item_code": controllerCode.text,
       "item_name": controllerName.text,
       "price": controllerPrice.text,
@@ -30,62 +33,58 @@ class _InputDataState extends State<InputData> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Input Data'),
+        title: Text('Input Data Page'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(8.0),
         child: ListView(
-          children: <Widget>[
-            new Column(
-              children: <Widget>[
-                new TextField(
+          children: [
+            Column(
+              children: [
+                TextField(
                   controller: controllerCode,
-                  decoration: new InputDecoration(
-                    hintText: "Item Code",
-                    labelText: "Item Code",
+                  decoration: InputDecoration(
+                    hintText: 'Item Code',
+                    labelText: 'Item Code',
                   ),
                 ),
-                new TextField(
+                TextField(
                   controller: controllerName,
-                  decoration: new InputDecoration(
-                    hintText: "Item Name",
-                    labelText: "Item Name",
+                  decoration: InputDecoration(
+                    hintText: 'Item Name',
+                    labelText: 'Item Name',
                   ),
                 ),
-                new TextField(
+                TextField(
                   controller: controllerPrice,
-                  decoration: new InputDecoration(
-                    hintText: "Price",
-                    labelText: "Price",
+                  decoration: InputDecoration(
+                    hintText: 'Price',
+                    labelText: 'Price',
                   ),
                 ),
-                new TextField(
+                TextField(
                   controller: controllerStock,
-                  decoration: new InputDecoration(
-                    hintText: "Stock",
-                    labelText: "Stock",
+                  decoration: InputDecoration(
+                    hintText: 'Stock',
+                    labelText: 'Stock',
                   ),
                 ),
-                new Padding(
-                  padding: const EdgeInsets.all(
-                    10.0,
-                  ),
-                ),
-                new ElevatedButton(
-                  child: new Text(
-                    "ADD DATA",
-                  ),
+                ElevatedButton(
                   onPressed: () {
                     addData();
+                    //redired
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) => ViewData(),
                       ),
                     );
                   },
-                )
+                  child: Text(
+                    'Save Data',
+                  ),
+                ),
               ],
-            ),
+            )
           ],
         ),
       ),
