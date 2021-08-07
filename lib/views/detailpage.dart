@@ -76,6 +76,7 @@ class _DetailPageState extends State<DetailPage> {
         title: Text(
           "${widget.list![widget.index]["item_name"]}",
         ),
+        automaticallyImplyLeading: false,
       ),
       body: Container(
         height: 270.0,

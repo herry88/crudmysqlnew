@@ -35,6 +35,7 @@ class _ViewDataState extends State<ViewData> {
     return Scaffold(
       appBar: AppBar(
         title: Text('CRUD MYSQL'),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List>(
           future: getData(),
